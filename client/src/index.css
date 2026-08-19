@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+@layer base {
+  body {
+    @apply bg-[#06070B] text-slate-100 font-sans antialiased;
+  }
+}
+
+.font-display {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #131210;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2720;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF4B2B;
+}
+
+/* Scroll Animation Utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px -2px rgba(255, 75, 43, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px 4px rgba(255, 75, 43, 0.55);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(16, 19, 30, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel-glow {
+  background: rgba(16, 19, 30, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: 0 0 30px -5px rgba(220, 38, 38, 0.2);
+}
+
+.glow-red {
+  box-shadow: 0 0 25px -2px rgba(239, 68, 68, 0.45);
+}
+
+.glow-crimson {
+  box-shadow: 0 0 30px -4px rgba(220, 38, 38, 0.55);
+}
+
+.glow-amber {
+  box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.35);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #F87171 0%, #EF4444 40%, #DC2626 70%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-red-bg {
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%);
+}
+
+.gradient-border-red {
+  border-image: linear-gradient(to right, #EF4444, #F59E0B) 1;
+}
+
+/* ─── 3D Card Flip Utilities ─── */
+.perspective-1200 {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+/* ─── Auth Page Dark Editorial Theme ─── */
+.auth-page-bg {
+  background-color: #0D0C08;
+  background-image:
+    radial-gradient(ellipse 900px 600px at 50% 0%, rgba(255,75,43,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 100% 100%, rgba(201,161,90,0.04) 0%, transparent 70%);
+}
+
+/* Glassmorphic dark card */
+.auth-card {
+  background: rgba(24, 23, 15, 0.92);
+  border: 1px solid rgba(201, 161, 90, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(201, 161, 90, 0.08) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark editorial input */
+.auth-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.auth-input-wrap:focus-within {
+  border-color: rgba(201, 161, 90, 0.4);
+  background: rgba(201, 161, 90, 0.04);
+}
+
+.auth-input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #e2e8f0;
+  font-family: inherit;
+}
+
+.auth-input-field::placeholder {
+  color: #4A5568;
+}
+
+/* Dark editorial primary button */
+.auth-btn-primary {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #FF4B2B 0%, #DC2626 60%, #B91C1C 100%);
+  box-shadow: 0 8px 24px rgba(255, 75, 43, 0.3), 0 2px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-btn-primary:hover {
+  background: linear-gradient(135deg, #FF5A3C 0%, #E53E3E 60%, #C53030 100%);
+  box-shadow: 0 12px 32px rgba(255, 75, 43, 0.45), 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+
+.auth-btn-primary:active {
+  transform: scale(0.98) translateY(1px);
+  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+}
+
+.auth-btn-primary:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Dark editorial toggle */
+.auth-toggle-track {
+  width: 38px;
+  height: 20px;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.2s, border 0.2s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.auth-toggle-knob {
+  position: absolute;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
+}

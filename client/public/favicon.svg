@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1F1B12" />
+      <stop offset="100%" stop-color="#0D0C08" />
+    </radialGradient>
+    
+    <!-- Crimson Fire Gradient -->
+    <linearGradient id="crimsonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5733" />
+      <stop offset="50%" stop-color="#FF4B2B" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+
+    <!-- Metallic Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D77F" />
+      <stop offset="40%" stop-color="#C9A15A" />
+      <stop offset="100%" stop-color="#8C6721" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Container Badge -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGlow)" />
+  <rect width="62" height="62" x="1" y="1" rx="15" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.4" fill="none" />
+
+  <!-- Stylized Geometric Shield / Crest Outline -->
+  <path d="M32 8 L52 18 L52 36 Q52 50 32 58 Q12 50 12 36 L12 18 Z" 
+        fill="#14130F" 
+        stroke="url(#goldGrad)" 
+        stroke-width="1.2" 
+        stroke-opacity="0.35" />
+
+  <!-- Barbell Plates (Left) -->
+  <rect x="18" y="24" width="4" height="16" rx="2" fill="url(#crimsonGrad)" filter="url(#shadow)" />
+  <rect x="23" y="27" width="3" height="10" rx="1.5" fill="url(#goldGrad)" />
+
+  <!-- Barbell Bar -->
+  <rect x="20" y="30.5" width="24" height="3" rx="1.5" fill="url(#goldGrad)" filter="url(#shadow)" />
+
+  <!-- Center Diamond Emblem -->
+  <path d="M32 24 L38 32 L32 40 L26 32 Z" fill="url(#crimsonGrad)" filter="url(#shadow)" />
+  <circle cx="32" cy="32" r="2.5" fill="#FFFFFF" opacity="0.9" />
+
+  <!-- Barbell Plates (Right) -->
+  <rect x="38" y="27" width="3" height="10" rx="1.5" fill="url(#goldGrad)" />
+  <rect x="42" y="24" width="4" height="16" rx="2" fill="url(#crimsonGrad)" filter="url(#shadow)" />
+
+  <!-- Lightning / Pulse Highlights -->
+  <path d="M29 14 L35 14 L31 22 L37 22 L27 38 L30 26 L25 26 Z" fill="url(#goldGrad)" opacity="0.9" />
+</svg>
