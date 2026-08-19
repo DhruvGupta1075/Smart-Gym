@@ -69,28 +69,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Quick 1-Click Demo Profiles for fast evaluation & testing
-  const quickLogin = async (roleName) => {
-    let email = 'admin@smartgym.com';
-    let pass = 'Admin@12345';
-
-    if (roleName === 'trainer') {
-      email = 'trainer.alex@smartgym.com';
-      pass = 'Trainer@12345';
-    } else if (roleName === 'trainer-sarah') {
-      email = 'trainer.sarah@smartgym.com';
-      pass = 'Trainer@12345';
-    } else if (roleName === 'member') {
-      email = 'jordan.member@gmail.com';
-      pass = 'Member@12345';
-    } else if (roleName === 'member-elena') {
-      email = 'elena.member@gmail.com';
-      pass = 'Member@12345';
-    }
-
-    return await login(email, pass);
-  };
-
   const checkWhitelist = async (email, role) => {
     try {
       const { data } = await api.post('/api/auth/check-whitelist', { email, role });
@@ -111,7 +89,6 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
-        quickLogin,
         checkWhitelist,
         refreshUser: checkCurrentUser,
       }}

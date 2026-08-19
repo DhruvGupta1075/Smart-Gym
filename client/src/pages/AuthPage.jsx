@@ -20,7 +20,7 @@ import {
 import Logo from '../components/common/Logo';
 
 const AuthPage = () => {
-  const { login, register, quickLogin, authError, checkWhitelist } = useAuth();
+  const { login, register, authError, checkWhitelist } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,7 +28,6 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [whitelistStatus, setWhitelistStatus] = useState(null);
-  const [showDemoLogins, setShowDemoLogins] = useState(false);
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const [showLoginPw, setShowLoginPw] = useState(false);
@@ -40,7 +39,7 @@ const AuthPage = () => {
     password: '',
     role: 'member',
     phone: '',
-    membershipPlan: 'Silver Monthly',
+    membershipPlan: 'Basic Monthly',
     fitnessGoals: 'Build lean muscle mass and improve strength',
   });
 
@@ -93,12 +92,6 @@ const AuthPage = () => {
     }
   };
 
-  const handleDemoLogin = async (roleKey) => {
-    setLoading(true);
-    const res = await quickLogin(roleKey);
-    setLoading(false);
-    if (res?.success) navigate('/dashboard');
-  };
 
   return (
     <div
@@ -129,19 +122,6 @@ const AuthPage = () => {
         </button>
 
         <Logo size="sm" badgeText="AUTH" subtitle="" to="/" />
-
-        <button
-          onClick={() => setShowDemoLogins(!showDemoLogins)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition cursor-pointer"
-          style={{
-            border: '1px solid rgba(212,175,55,0.3)',
-            color: '#D4AF37',
-            background: showDemoLogins ? 'rgba(212,175,55,0.1)' : 'transparent',
-          }}
-        >
-          <Zap className="w-3.5 h-3.5 fill-[#D4AF37]" />
-          <span className="hidden sm:block">Quick Demo</span>
-        </button>
       </div>
 
       {/* ── 3D Flip Scene ── */}
@@ -410,47 +390,7 @@ const AuthPage = () => {
         </div>
       </div>
 
-      {/* ── Quick Demo Logins Panel ── */}
-      {showDemoLogins && (
-        <div className="mt-5 w-full max-w-[480px] z-20 animate-fade-in-up rounded-2xl p-4 sm:p-5"
-          style={{ background: 'rgba(19,18,8,0.95)', border: '1px solid rgba(212,175,55,0.18)', backdropFilter: 'blur(12px)' }}>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold flex items-center gap-1.5" style={{ color: '#D4AF37' }}>
-              <Zap className="w-4 h-4 fill-[#D4AF37]" />
-              <span className="font-sans font-medium tracking-widest uppercase tracking-wider uppercase text-[11px]">1-Click Instant Test Portals</span>
-            </span>
-            <span className="text-[10px] font-sans font-medium tracking-widest uppercase px-2 py-0.5 rounded-full"
-              style={{ background: 'rgba(225,29,72,0.15)', border: '1px solid rgba(225,29,72,0.3)', color: '#FF2A2A' }}>
-              INSTANT
-            </span>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {[
-              { key: 'admin',        label: 'Admin',     sub: 'Marcus (Superadmin)',  Icon: ShieldCheck, color: '#FF2A2A' },
-              { key: 'trainer',      label: 'Coach',     sub: 'Coach Vikram',         Icon: Dumbbell,    color: '#D4AF37' },
-              { key: 'member',       label: 'Member #1', sub: 'Rahul (Streak: 14d)',  Icon: Flame,       color: '#4FD1C5' },
-              { key: 'member-elena', label: 'Member #2', sub: 'Priya (Gold VIP)',     Icon: Award,       color: '#6FBE8C' },
-            ].map(({ key, label, sub, Icon, color }) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => handleDemoLogin(key)}
-                className="p-3 rounded-xl text-left transition cursor-pointer"
-                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = color + '50'; e.currentTarget.style.background = color + '0D'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; }}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold" style={{ color }}>{label}</span>
-                  <Icon className="w-3.5 h-3.5" style={{ color }} />
-                </div>
-                <p className="text-[10px] text-slate-600 truncate font-sans font-medium tracking-widest uppercase">{sub}</p>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ── Forgot Password Modal ── */}
       {forgotPasswordOpen && (
