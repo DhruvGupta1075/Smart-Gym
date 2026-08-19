@@ -470,9 +470,9 @@ export default function MemberDashboard() {
       return;
     }
     try {
-      const res = await api.post("/api/attendance/self-checkin", {
-        memberId: user?._id || user?.id,
-        code: dailyCode,
+      const res = await api.post("/api/attendance/check-in", {
+        qrToken: dailyCode,
+        method: "MANUAL_CODE",
       });
       if (res.data.success) {
         showToast("Check-in successful! Welcome to the gym.", "success");
