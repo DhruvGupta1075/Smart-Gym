@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data.user);
       }
     } catch (err) {
+      localStorage.removeItem('gym_token');
       setUser(null);
     } finally {
       setLoading(false);
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await api.post('/api/auth/login', { email, password });
       if (data.success) {
+        if (data.token) localStorage.setItem('gym_token', data.token);
         setUser(data.user);
         return { success: true, user: data.user };
       }
@@ -49,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await api.post('/api/auth/register', formData);
       if (data.success) {
+        if (data.token) localStorage.setItem('gym_token', data.token);
         setUser(data.user);
         return { success: true, user: data.user };
       }
@@ -65,6 +68,7 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {
       console.error('Logout error:', e);
     } finally {
+      localStorage.removeItem('gym_token');
       setUser(null);
     }
   };
