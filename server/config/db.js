@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-
-let mongod = null;
 
 const connectDB = async () => {
   try {
@@ -32,12 +29,8 @@ const connectDB = async () => {
       console.log(`🚀 [MongoDB Connected]: ${conn.connection.host} / Database: ${conn.connection.name}`);
       return conn;
     } else {
-      console.log('💡 [MongoDB] No MONGODB_URI detected in .env. Initializing local in-memory MongoDB server...');
-      mongod = await MongoMemoryServer.create();
-      const inMemoryUri = mongod.getUri();
-      const conn = await mongoose.connect(inMemoryUri);
-      console.log(`⚡ [MongoDB In-Memory Connected]: ${inMemoryUri}`);
-      return conn;
+      console.error('❌ [MongoDB Error]: No MONGODB_URI detected in environment variables.');
+      throw new Error('MONGODB_URI missing');
     }
   } catch (error) {
     console.error('❌ [MongoDB Connection Error]:', error.message);
@@ -46,28 +39,13 @@ const connectDB = async () => {
     } else if (error.message.includes('querySrv ETIMEOUT') || error.message.includes('Server selection timed out')) {
       console.error('👉 Hint: Make sure your current IP address is whitelisted in MongoDB Atlas (Network Access -> Add IP 0.0.0.0/0).');
     }
-    
-    // Fallback to in-memory server so development never breaks
-    console.log('🔄 Falling back to embedded in-memory MongoDB instance for continuous uptime...');
-    try {
-      mongod = await MongoMemoryServer.create();
-      const inMemoryUri = mongod.getUri();
-      const conn = await mongoose.connect(inMemoryUri);
-      console.log(`⚡ [MongoDB Fallback Connected]: ${inMemoryUri}`);
-      return conn;
-    } catch (fallbackErr) {
-      console.error('Fatal database error:', fallbackErr);
-      process.exit(1);
-    }
+    throw error;
   }
 };
 
 const disconnectDB = async () => {
   try {
     await mongoose.disconnect();
-    if (mongod) {
-      await mongod.stop();
-    }
   } catch (error) {
     console.error('Error disconnecting database:', error);
   }

@@ -77,8 +77,16 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-// Start Server and Auto-Seed if empty
-const startServer = async () => {
+// Start HTTP Server immediately so Render health checks can pass
+app.listen(PORT, () => {
+  console.log(`====================================================`);
+  console.log(`🚀 Smart Gym Analytics API Server running on port ${PORT}`);
+  console.log(`⚡ Health check: http://localhost:${PORT}/api/health`);
+  console.log(`====================================================`);
+});
+
+// Connect DB asynchronously
+const initializeDB = async () => {
   try {
     await connectDB();
 
@@ -90,17 +98,10 @@ const startServer = async () => {
     } else {
       console.log(`[Server] Database already contains ${userCount} users. Ready!`);
     }
-
-    app.listen(PORT, () => {
-      console.log(`====================================================`);
-      console.log(`🚀 Smart Gym Analytics API Server running on port ${PORT}`);
-      console.log(`⚡ Health check: http://localhost:${PORT}/api/health`);
-      console.log(`====================================================`);
-    });
   } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
+    console.error('Failed to initialize database:', error);
+    // Note: Not calling process.exit(1) here so the API remains alive for health checks
   }
 };
 
-startServer();
+initializeDB();
